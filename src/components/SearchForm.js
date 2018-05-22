@@ -24,9 +24,7 @@ export class SearchForm extends Component {
           console.log({Search, totalResults});
           this.props.onResults(Search)
         })
-  }
-    
-  ;
+  };
 
   render() {
     return (

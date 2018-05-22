@@ -1,38 +1,27 @@
 import React, {Component} from 'react';
-import {Title} from "./components/Title";
-import {SearchForm} from "./components/SearchForm";
-import {MoviesList} from './components/MoviesList'
+
+
+import {Detail} from "./pages/Detail";
+import {Home} from "./pages/Home";
 
 import './App.css';
 import 'bulma/css/bulma.css'
 
 class App extends Component {
 
-  state = {
-    results: [],
-    useSearch: false
-  };
-
-  _handleResults = (results) => {
-    this.setState({results, useSearch: true})
-  };
-
-  _renderResult () {
-    return this.state.results.length === 0
-        ? <p>Sorry! Results Not found</p>
-        : <MoviesList movies={this.state.results} />
-  }
 
   render() {
+    // Vamos a crear la API nativa de JavaScript para crear un enrutador
+    const url = new URL(document.location);
+
+    const Page = url.searchParams.has('id')
+        ? <Detail id={url.searchParams.get('id')}/>
+        : <Home/>
+
+
     return (
         <div className="App">
-          <Title>Search Movies</Title>
-          <div className={'searchForm-wrapper'}>
-            <SearchForm onResults={this._handleResults}/>
-          </div>
-          {this.state.useSearch
-              ? this._renderResult()
-              : <small>Use the form to search a movie</small>}
+          {Page}
         </div>
     );
   }
